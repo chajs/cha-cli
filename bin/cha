@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var Liftoff = require('liftoff');
+var chalk = require('chalk');
+var path = require('path');
+var logger = console;
+
+var cli = new Liftoff({
+  name: 'cha',
+  addExtensions: ['.coffee'],
+});
+
+cli.on('require', function(name) {
+  logger.log('Requiring external module', chalk.magenta(name));
+});
+
+cli.on('requireFail', function(name) {
+  logger.log(chalk.red('Failed to load external module'), chalk.magenta(name));
+});
+
+cli.launch(handler);
+
+function handler(env) {
+
+  var argv = env.argv;
+  var cliPackage = require('../package');
+  var versionFlag = argv.v || argv.version;
+
+  if(path.extname(env.configPath) === '.coffee'){
+    require('coffee-script/register');
+  }
+
+  if (versionFlag) {
+    logger.log('Cha CLI version', chalk.green(cliPackage.version));
+    if (env.modulePackage) {
+      logger.log('Local Cha version', chalk.green(env.modulePackage.version));
+    }
+    process.exit(0);
+  }
+
+  if (!env.modulePath) {
+    logger.log(chalk.red('No local cha install found in'), chalk.magenta(env.cwd));
+    logger.log(chalk.red('Try execute: npm install cha'));
+    process.exit(1);
+  }
+
+  if (!env.configPath) {
+    logger.log(chalk.red('No chafile found'));
+    process.exit(1);
+  }
+
+  if (process.cwd() !== env.cwd) {
+    process.chdir(env.cwd);
+    logger.log('Working directory changed to', chalk.magenta(env.cwd));
+  }
+
+  logger.log('Using chafile', chalk.magenta(env.configPath));
+  require(env.configPath);
+
+}

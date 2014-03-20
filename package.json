@@ -1,0 +1,33 @@
+{
+  "name": "cha-cli",
+  "version": "0.0.1",
+  "description": "Cha CLI Application.",
+  "bin": {
+    "cha": "./bin/cha"
+  },
+  "scripts": {
+    "test": "node ./bin/cha --cwd test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chajs/cha-cli.git"
+  },
+  "keywords": [
+    "cha",
+    "cli"
+  ],
+  "author": "yuanyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chajs/cha-cli/issues"
+  },
+  "homepage": "https://github.com/chajs/cha-cli",
+  "dependencies": {
+    "liftoff": "^0.9.6",
+    "chalk": "^0.4.0",
+    "coffee-script": "^1.7.1"
+  },
+  "devDependencies": {
+    "cha": "^0.1.2"
+  }
+}
