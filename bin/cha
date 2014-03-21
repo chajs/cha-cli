@@ -33,21 +33,21 @@ function handler(env) {
   }
 
   if (versionFlag) {
-    logger.log('Cha CLI version', chalk.green(cliPackage.version));
+    logger.log('Global installed Cha CLI version', chalk.green(cliPackage.version));
     if (env.modulePackage) {
-      logger.log('Local Cha version', chalk.green(env.modulePackage.version));
+      logger.log('Local installed Cha version', chalk.green(env.modulePackage.version));
     }
     process.exit(0);
   }
 
-  if (!env.modulePath) {
-    logger.log(chalk.red('No local cha install found in'), chalk.magenta(env.cwd));
-    logger.log(chalk.red('Try execute: npm install cha'));
+  if (!env.configPath) {
+    logger.log(chalk.red('No chafile found in'), chalk.magenta(env.cwd));
     process.exit(1);
   }
 
-  if (!env.configPath) {
-    logger.log(chalk.red('No chafile found'));
+  if (!env.modulePath) {
+    logger.log(chalk.red('No local cha installed found in'), chalk.magenta(env.cwd));
+    logger.log(chalk.red('Try execute: npm install cha'));
     process.exit(1);
   }
 
