@@ -33,9 +33,9 @@ function handler(env) {
   }
 
   if (versionFlag) {
-    logger.log('Global installed Cha CLI version', chalk.green(cliPackage.version));
-    if (env.modulePackage) {
-      logger.log('Local installed Cha version', chalk.green(env.modulePackage.version));
+    logger.log('Global installed cha CLI version', chalk.green(cliPackage.version));
+    if (env.modulePackage.version) {
+      logger.log('Local installed cha version', chalk.green(env.modulePackage.version));
     }
     process.exit(0);
   }
